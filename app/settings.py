@@ -10,7 +10,7 @@ class Settings:
     db_port: int = int(os.getenv("DB_PORT", "5432"))
     db_name: str = os.getenv("DB_NAME", "m_db")
     db_user: str = os.getenv("DB_USER", "postgres")
-    db_password: str = os.getenv("DB_PASSWORD", "nurrulit")
+    db_password: str = os.getenv("DB_PASSWORD", "secret")
 
     http_host: str = os.getenv("HTTP_HOST", "localhost")
     http_port: int = int(os.getenv("HTTP_PORT", "8080"))
