@@ -38,16 +38,13 @@ class DatabaseManager(IDatabaseManager):
 
     @defer.inlineCallbacks
     def save_configuration(self, service: str, payload: Dict[str, Any]) -> int:
-        """Сохранить конфигурацию и вернуть версию."""
 
         def _save_in_thread():
             conn = self._get_connection()
             try:
                 with conn.cursor() as cursor:
-                    # Определяем версию
                     version = payload.get('version')
                     if version is None:
-                        # Получаем максимальную версию для сервиса
                         cursor.execute(
                             "SELECT COALESCE(MAX(version), 0) FROM configurations WHERE service = %s",
                             (service,)
@@ -56,7 +53,6 @@ class DatabaseManager(IDatabaseManager):
                         version = max_version + 1
                         payload['version'] = version
 
-                    # Сохраняем конфигурацию
                     cursor.execute(
                         """
                         INSERT INTO configurations (service, version, payload)

@@ -68,8 +68,6 @@ class ConfigService(IConfigService):
                     template = Template(val)
                     return template.render(template_vars)
                 except TemplateError as e:
-                    # В случае ошибки шаблона возвращаем оригинальную строку
-                    # или можно выбросить исключение - зависит от требований
                     return val
             elif isinstance(val, dict):
                 return {k: _render(v) for k, v in val.items()}
