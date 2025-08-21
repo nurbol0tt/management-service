@@ -52,20 +52,15 @@ class ConfigService(IConfigService):
             template_vars: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         cfg = yield self.db.get_configuration(service, version)
-        # Убираем проверку cfg is None, так как db_manager уже выбрасывает исключения
-
         payload = cfg.payload
-
-        # Применяем шаблонизацию, если запрошена
         if template:
             if template_vars is None:
-                template_vars = {}  # Используем пустой словарь, если переменные не переданы
+                template_vars = {}
             payload = self._apply_template(payload, template_vars)
 
         defer.returnValue(payload)
 
     def _apply_template(self, payload: Dict[str, Any], template_vars: Dict[str, Any]) -> Dict[str, Any]:
-        """Рекурсивно применяет Jinja2 шаблоны к всем строковым значениям"""
 
         def _render(val):
             if isinstance(val, str):
