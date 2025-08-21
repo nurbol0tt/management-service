@@ -97,7 +97,7 @@ curl -X GET http://localhost:8081/config/template_service?template=1 \
 }
 
 
-curl http://localhost:8080/config/my_service/history
+curl http://localhost:8081/config/my_service/history
 
 Ответ:
 [
